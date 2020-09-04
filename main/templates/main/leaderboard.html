@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-primary shadow">
+            <div class="text-center">
+                <h5 class="card-header text-primary text-uppercase">Leaderboard</h5>
+            </div>
+            <div class="card-body">
+                {% if user_leaderboard_all|length == 0 %}
+                    <p>No users on the leaderboard at the moment...</p>
+                    <a class="btn btn-success" href="{% url 'create' %}"><i class="fas fa-plus-circle"></i> Add new record</a>
+                {% else %}
+                    <table class="table table-bordered">
+                        <thead>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Total Calories</th>
+                            <th scope="col">Total Duration</th>
+                            <th scope="col">Last Record</th>
+                        </thead>
+                        <tbody>
+                        {% for user_leaderboard in user_leaderboard_all %}
+                            <tr>
+                                <th scope="row">
+                                    {% if forloop.counter == 1 %}
+                                        <span>🥇</span>
+                                    {% elif forloop.counter == 2 %}
+                                        <span>🥈</span>f
+                                    {% elif forloop.counter == 3 %}
+                                        <span>🥉</span>
+                                    {% else %}
+                                        <span>{{ forloop.counter }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ user_leaderboard.user.first_name }}</td>
+                                <td>{{ user_leaderboard.total_calories }}</td>
+                                <td>{{ user_leaderboard.total_duration }}</td>
+                                <td>{{ user_leaderboard.updated|date:"H:i - d/m/y" }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

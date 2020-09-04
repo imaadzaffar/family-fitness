@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card text-center shadow">
+            <h5 class="card-header text-danger text-uppercase">Error 404</h5>
+            <div class="card-body">
+                <h2>Oops, something went wrong!</h2>
+                <p>Sorry, an error has occured, there was a problem with the server!</p>
+                <a href="{% url 'home' %}" class="btn btn-primary btn-lg"><i class="fas fa-home"></i> Go To Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
