@@ -1,1 +1,1 @@
-web: gunicorn family_fitness.wsgi --log-file
+web: gunicorn family_fitness.wsgi --log-file -
