@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_xf1#edf(6zpeow8s1fx%03i2vp(hois9-9i^&c44z1ryicjv9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['zafaris-family-fitness.herokuapp.com', '127.0.0.1']
 
