@@ -2,13 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from django import forms
 from django.utils import timezone
-import uuid
 
 # Create your models here.
 class UserLeaderboard(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     total_calories = models.IntegerField(default=0)
-    total_duration = models.DurationField(default=0)
+    total_duration = models.DurationField()
     updated = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

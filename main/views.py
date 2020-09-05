@@ -4,8 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import UserLeaderboard, FitnessRecord
 
 import datetime
-from django.utils import timezone
-from django.utils.dateparse import parse_duration
+from django.utils import timezone, dateparse
 import sys
 
 # Create your views here.
@@ -38,7 +37,7 @@ def create(request):
             category = request.POST.get('category')
             calories = int(request.POST.get('calories'))
             duration = request.POST.get('duration')
-            duration = parse_duration(duration)
+            duration = dateparse.parse_duration(duration)
 
             record = FitnessRecord(user=user, category=category, calories=calories, duration=duration)
             record.save()
