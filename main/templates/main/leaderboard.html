@@ -37,7 +37,7 @@
                                 <td>{{ user_leaderboard.user.first_name }}</td>
                                 <td>{{ user_leaderboard.total_calories }}</td>
                                 <td>{{ user_leaderboard.total_duration }}</td>
-                                <td>{{ user_leaderboard.updated|date:"H:i - d/m/y" }}</td>
+                                <td>{{ user_leaderboard.updated|date:"j M Y" }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>

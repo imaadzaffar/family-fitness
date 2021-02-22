@@ -24,7 +24,7 @@
                         <tbody>
                         {% for record in records %}
                             <tr>
-                                <td>{{ record.created|date:"H:i - d/m/y" }}</td>
+                                <td>{{ record.created|date:"j M Y" }}</td>
                                 <td>{{ record.category }}</td>
                                 <td>{{ record.calories }}</td>
                                 <td>{{ record.duration }}</td>
