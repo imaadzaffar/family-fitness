@@ -1,5 +1,5 @@
 .env_django
-.vscode/settings.json
+.vscode/*
 __pycache__
 *.DS_Store
 *.pyc
