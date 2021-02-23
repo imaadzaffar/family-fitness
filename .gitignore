@@ -1,3 +1,4 @@
+.env
 .env_django
 .vscode/*
 __pycache__

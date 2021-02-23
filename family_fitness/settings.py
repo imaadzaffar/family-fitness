@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+import psycopg2
+
+DATABASE_URL = os.environ['DATABASE_URL']
+
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +31,7 @@ SECRET_KEY = '_xf1#edf(6zpeow8s1fx%03i2vp(hois9-9i^&c44z1ryicjv9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['zafaris-family-fitness.herokuapp.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['zafaris-family-fitness.herokuapp.com', '0.0.0.0', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -134,10 +140,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Configure Django App for Heroku.
 import dj_database_url
 
-ON_HEROKU = False
-if ON_HEROKU:
-    DATABASE_URL = 'postgresql://<postgresql>'
-else:
-    DATABASE_URL = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
-
-DATABASES = {'default': dj_database_url.config(default=DATABASE_URL)}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
