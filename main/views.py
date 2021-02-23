@@ -22,9 +22,11 @@ def leaderboard(request):
     for user_leaderboard in UserLeaderboard.objects.all():
         user = user_leaderboard.user
         user_records = FitnessRecord.objects.order_by('-created').filter(user=user)
-        agg_stats = user_records.filter(created__month=timezone.now().month).aggregate(total_calories=Coalesce(Sum('calories'), 0), total_duration=Coalesce(Sum('duration'), 0))
+        agg_stats = user_records.filter(created__month=timezone.now().month).aggregate(total_calories=Coalesce(Sum('calories'), 0), total_duration=Sum('duration'))
         agg_stats['user'] = user
         agg_stats['last_record'] = user_records[0].created
+        if (agg_stats['total_duration'] is None):
+            agg_stats['total_duration'] = datetime.timedelta()
 
         leaderboard_records.append(agg_stats)
 
