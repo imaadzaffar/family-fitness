@@ -1,62 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/4dce3d337b.js" crossorigin="anonymous"></script>
 
     <title>Family Fitness</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <nav class="navbar navbar-dark bg-dark navbar-expand-md">
-            <div class="container">
-                <a class="navbar-brand text-primary" href="{% url 'home' %}"><i class="fas fa-biking"></i></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a class="nav-item nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
-                        <a class="nav-item nav-link {% if request.resolver_match.url_name == 'leaderboard' %}active{% endif %}" href="{% url 'leaderboard' %}"><i class="fas fa-trophy"></i> Leaderboard</a>
-                        <a class="nav-item nav-link {% if request.resolver_match.url_name == 'records' %}active{% endif %}" href="{% url 'records' %}"><i class="fas fa-history"></i> Records</a>
-                        <a class="nav-item nav-link {% if request.resolver_match.url_name == 'create' %}active{% endif %}" href="{% url 'create' %}"><i class="fas fa-plus-circle"></i> Add new record</a>
-                    </div>
-                </div>
-                <div class="navbar-nav navbar-no-expand navbar-right ml-auto">
-                    {% if user.is_authenticated %}
-                        <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                    {% else %}
-                        <a class="nav-item nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
-                        <a class="nav-item nav-link" href="{% url 'register' %}"><i class="fas fa-user-plus"></i> Register</a>
-                    {% endif %}
-                </div>
+      <nav class="navbar navbar-dark bg-dark navbar-expand-md">
+        <div class="container">
+          <a class="navbar-brand text-primary" href="{% url 'home' %}"><i class="fas fa-biking"></i></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a
+                class="nav-item nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                href="{% url 'home' %}"
+                ><i class="fas fa-home"></i> Home</a
+              >
+              <a
+                class="nav-item nav-link {% if request.resolver_match.url_name == 'leaderboard' %}active{% endif %}"
+                href="{% url 'leaderboard' %}"
+                ><i class="fas fa-trophy"></i> Leaderboard</a
+              >
+              <a
+                class="nav-item nav-link {% if request.resolver_match.url_name == 'records' %}active{% endif %}"
+                href="{% url 'records' %}"
+                ><i class="fas fa-history"></i> Records</a
+              >
+              <a
+                class="nav-item nav-link {% if request.resolver_match.url_name == 'create' %}active{% endif %}"
+                href="{% url 'create' %}"
+                ><i class="fas fa-plus-circle"></i> Add new record</a
+              >
             </div>
-        </nav>
+          </div>
+          <div class="navbar-nav navbar-no-expand navbar-right ml-auto">
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a class="nav-item nav-link" href="{% url 'register' %}"><i class="fas fa-user-plus"></i> Register</a>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
     </header>
     <div class="main">
-        <div class="jumbotron jumbotron-fluid bg-primary text-white">
-            <div class="container">
-                <h1 class="display-4">Family Fitness</h1>
-                <p class="lead">Track your calories, duration, and compete with other members of your family to be the fittest!</p>
-            </div>
+      <div class="jumbotron jumbotron-fluid bg-primary text-white">
+        <div class="container">
+          <h1 class="display-4">Family Fitness</h1>
+          <p class="lead">
+            Track your calories, duration, and compete with other members of your family to be the fittest!
+          </p>
         </div>
-        <div class="container p-2 mb-3">
-            {% block content %}
-            {% endblock %}
-        </div>
+      </div>
+      <div class="container p-2 mb-3">{% block content %} {% endblock %}</div>
     </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"       crossorigin="anonymous"></script>
-</body>
+  </body>
 </html>

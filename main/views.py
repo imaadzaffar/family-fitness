@@ -1,11 +1,14 @@
-from django.shortcuts import render, redirect
-from .forms import FitnessRecordForm
-from django.contrib.auth.decorators import login_required
-from .models import UserLeaderboard, FitnessRecord
-
 import datetime
-from django.utils import timezone, dateparse
 import sys
+
+from django.contrib.auth.decorators import login_required
+from django.db.models import Avg, Count, Min, Sum
+from django.shortcuts import redirect, render
+from django.utils import dateparse, timezone
+
+from .forms import FitnessRecordForm
+from .models import FitnessRecord, UserLeaderboard
+
 
 # Create your views here.
 def home(request):
@@ -13,9 +16,22 @@ def home(request):
     return render(request, 'main/home.html', context)
 
 def leaderboard(request):
-    user_leaderboard_all = UserLeaderboard.objects.order_by('-total_calories')
+    leaderboard_records = []
+
+    for user_leaderboard in UserLeaderboard.objects.all():
+        user = user_leaderboard.user
+        user_records = FitnessRecord.objects.order_by('-created').filter(user=user, created__month=timezone.now().month)
+        agg_stats = user_records.aggregate(total_calories=Sum('calories'), total_duration=Sum('duration'))
+        agg_stats['user'] = user
+        agg_stats['last_record'] = user_records[0].created
+
+        leaderboard_records.append(agg_stats)
+
+    # Sort descending by calories
+    leaderboard_records = sorted(leaderboard_records, key=lambda k: k['total_calories'], reverse=True)
+
     context = {
-        'user_leaderboard_all': user_leaderboard_all
+        'leaderboard_records': leaderboard_records
     }
     return render(request, 'main/leaderboard.html', context)
 
@@ -36,23 +52,22 @@ def create(request):
             user = request.user
             category = request.POST.get('category')
             calories = int(request.POST.get('calories'))
-            duration = request.POST.get('duration')
-            duration = dateparse.parse_duration(duration)
+            duration = dateparse.parse_duration(request.POST.get('duration'))
 
             record = FitnessRecord(user=user, category=category, calories=calories, duration=duration)
             record.save()
 
-            user_leaderboardeaderboard = UserLeaderboard.objects.filter(user=user).first()
-            if user_leaderboardeaderboard is None:
-                user_leaderboardeaderboard = UserLeaderboard()
-                user_leaderboardeaderboard.user = user
-                user_leaderboardeaderboard.total_calories = calories
-                user_leaderboardeaderboard.total_duration = duration
+            user_leaderboard = UserLeaderboard.objects.filter(user=user).first()
+            if user_leaderboard is None:
+                user_leaderboard = UserLeaderboard()
+                user_leaderboard.user = user
+                user_leaderboard.total_calories = calories
+                user_leaderboard.total_duration = duration
             else:
-                user_leaderboardeaderboard.total_calories += calories
-                user_leaderboardeaderboard.total_duration += duration
-                user_leaderboardeaderboard.updated = timezone.now()
-            user_leaderboardeaderboard.save()
+                user_leaderboard.total_calories += calories
+                user_leaderboard.total_duration += duration
+                user_leaderboard.updated = timezone.now()
+            user_leaderboard.save()
 
             return redirect('records')
     else:
@@ -75,8 +90,7 @@ def edit(request, pk):
             user = request.user
             category = request.POST.get('category')
             calories = int(request.POST.get('calories'))
-            duration = request.POST.get('duration')
-            duration = parse_duration(duration)
+            duration = parse_duration(request.POST.get('duration'))
 
             difference_calories = calories - old_calories
             difference_duration = duration - old_duration
@@ -86,10 +100,10 @@ def edit(request, pk):
             record.duration = duration
             record.save()
 
-            user_leaderboardeaderboard = UserLeaderboard.objects.get(user=user)
-            user_leaderboardeaderboard.total_calories += difference_calories
-            user_leaderboardeaderboard.total_duration += difference_duration
-            user_leaderboardeaderboard.save()
+            user_leaderboard = UserLeaderboard.objects.get(user=user)
+            user_leaderboard.total_calories += difference_calories
+            user_leaderboard.total_duration += difference_duration
+            user_leaderboard.save()
 
             return redirect('records')
     else:
