@@ -1,18 +1,10 @@
-from django.db import models
-from django.contrib.auth.models import User
 from django import forms
+from django.contrib.auth.models import User
+from django.db import models
 from django.utils import timezone
 
+
 # Create your models here.
-class UserLeaderboard(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    total_calories = models.IntegerField(default=0)
-    total_duration = models.DurationField()
-    updated = models.DateTimeField(default=timezone.now)
-
-    def __str__(self):
-        return f'{self.user}, {self.total_calories}'
-
 class FitnessRecord(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(default=timezone.now)

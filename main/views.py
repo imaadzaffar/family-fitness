@@ -2,13 +2,14 @@ import datetime
 import sys
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.db.models import Avg, Count, Min, Sum
 from django.db.models.functions import Coalesce
 from django.shortcuts import redirect, render
 from django.utils import dateparse, timezone
 
 from .forms import FitnessRecordForm
-from .models import FitnessRecord, UserLeaderboard
+from .models import FitnessRecord
 
 
 # Create your views here.
@@ -19,8 +20,8 @@ def home(request):
 def leaderboard(request):
     leaderboard_records = []
 
-    for user_leaderboard in UserLeaderboard.objects.all():
-        user = user_leaderboard.user
+    users = User.objects.all()
+    for user in users:
         user_records = FitnessRecord.objects.order_by('-created').filter(user=user)
         user_stats = user_records.filter(created__month=timezone.now().month).aggregate(total_calories=Coalesce(Sum('calories'), 0), total_duration=Sum('duration'))
         user_stats['user'] = user
@@ -32,7 +33,6 @@ def leaderboard(request):
 
     # Sort descending by calories
     leaderboard_records = sorted(leaderboard_records, key=lambda k: k['total_calories'], reverse=True)
-    # print(leaderboard_records)
 
     context = {
         'leaderboard_records': leaderboard_records
@@ -60,18 +60,6 @@ def create(request):
 
             record = FitnessRecord(user=user, category=category, calories=calories, duration=duration)
             record.save()
-
-            user_leaderboard = UserLeaderboard.objects.filter(user=user).first()
-            if user_leaderboard is None:
-                user_leaderboard = UserLeaderboard()
-                user_leaderboard.user = user
-                user_leaderboard.total_calories = calories
-                user_leaderboard.total_duration = duration
-            else:
-                user_leaderboard.total_calories += calories
-                user_leaderboard.total_duration += duration
-                user_leaderboard.updated = timezone.now()
-            user_leaderboard.save()
 
             return redirect('records')
     else:
@@ -104,11 +92,6 @@ def edit(request, pk):
             record.duration = duration
             record.save()
 
-            user_leaderboard = UserLeaderboard.objects.get(user=user)
-            user_leaderboard.total_calories += difference_calories
-            user_leaderboard.total_duration += difference_duration
-            user_leaderboard.save()
-
             return redirect('records')
     else:
         record = FitnessRecord.objects.get(pk=pk)
@@ -125,13 +108,5 @@ def delete(request, pk):
     calories = record.calories
     duration = record.duration
     record.delete()
-
-    user_leaderboard = UserLeaderboard.objects.get(user=request.user)
-    user_leaderboard.total_calories -= calories
-    user_leaderboard.total_duration -= duration
-    if user_leaderboard.total_calories == 0:
-        user_leaderboard.delete()
-    else:
-        user_leaderboard.save()
 
     return redirect('records')
