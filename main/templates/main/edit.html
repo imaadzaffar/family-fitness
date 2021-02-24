@@ -4,19 +4,19 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-12">
-        <div class="card shadow">
-            <div class="text-center">
-                <h5 class="card-header text-primary text-uppercase font-weight-bold">Edit a Fitness Record</h5>
-            </div>
-            <div class="card-body">
-                <form method="POST" action="#">
-                    {% csrf_token %}
-                    {{ form|crispy }}
-                    <button class="btn btn-warning" type="submit"><i class="fas fa-save"></i> Save</button>
-                </form>
-            </div>
-        </div>
+  <div class="col-md-12">
+    <div class="card shadow">
+      <div class="text-center">
+        <h5 class="card-header text-primary text-uppercase font-weight-bold">Edit a Fitness Record</h5>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="#">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button class="btn btn-warning" type="submit"><i class="fas fa-save"></i> Save</button>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}

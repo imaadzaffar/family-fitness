@@ -1,6 +1,3 @@
-import datetime
-import sys
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Avg, Count, Min, Sum
@@ -11,6 +8,8 @@ from django.utils import dateparse, timezone
 from .forms import FitnessRecordForm
 from .models import FitnessRecord
 
+import datetime
+import sys
 
 # Create your views here.
 def home(request):
