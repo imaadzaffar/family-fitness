@@ -63,26 +63,34 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a
-                class="nav-item nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
-                href="{% url 'home' %}"
-                ><i class="fas fa-home"></i> Home</a
-              >
-              <a
-                class="nav-item nav-link {% if request.resolver_match.url_name == 'leaderboard' %}active{% endif %}"
-                href="{% url 'leaderboard' %}"
-                ><i class="fas fa-trophy"></i> Leaderboard</a
-              >
-              <a
-                class="nav-item nav-link {% if request.resolver_match.url_name == 'records' %}active{% endif %}"
-                href="{% url 'records' %}"
-                ><i class="fas fa-history"></i> Records</a
-              >
-              <a
-                class="nav-item nav-link {% if request.resolver_match.url_name == 'create' %}active{% endif %}"
-                href="{% url 'create' %}"
-                ><i class="fas fa-plus-circle"></i> Add new record</a
-              >
+              {% if family is None %}
+                <a
+                  class="nav-item nav-link {% if request.resolver_match.url_name == 'create' %}active{% endif %}"
+                  href="{% url 'home' %}"
+                  ><i class="fas fa-plus-circle"></i> Join family</a
+                >
+              {% else %}
+                <a
+                  class="nav-item nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
+                  href="{% url 'home' %}"
+                  ><i class="fas fa-home"></i> Home</a
+                >
+                <a
+                  class="nav-item nav-link {% if request.resolver_match.url_name == 'leaderboard' %}active{% endif %}"
+                  href="{% url 'leaderboard' %}"
+                  ><i class="fas fa-trophy"></i> Leaderboard</a
+                >
+                <a
+                  class="nav-item nav-link {% if request.resolver_match.url_name == 'records' %}active{% endif %}"
+                  href="{% url 'records' %}"
+                  ><i class="fas fa-history"></i> Records</a
+                >
+                <a
+                  class="nav-item nav-link {% if request.resolver_match.url_name == 'create' %}active{% endif %}"
+                  href="{% url 'create' %}"
+                  ><i class="fas fa-plus-circle"></i> Add new record</a
+                >
+              {% endif %}
             </div>
           </div>
           <div class="navbar-nav navbar-no-expand navbar-right ml-auto">

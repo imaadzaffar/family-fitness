@@ -8,9 +8,13 @@
         <h5 class="card-header text-primary text-uppercase font-weight-bold">Home</h5>
       </div>
       <div class="card-body">
-        <a class="btn btn-primary btn-block" href="{% url 'leaderboard' %}"><i class="fas fa-trophy"></i> Go to leaderboard</a>
-        <a class="btn btn-info btn-block" href="{% url 'records' %}"><i class="fas fa-history"></i> View my records</a>
-        <a class="btn btn-success btn-block" href="{% url 'create' %}"><i class="fas fa-plus-circle"></i> Add new record</a>
+        {% if family is None %}
+          <a class="btn btn-success btn-block" href="{% url 'home' %}"><i class="fas fa-plus-circle"></i> Join family</a>
+        {% else %}
+           <a class="btn btn-primary btn-block" href="{% url 'leaderboard' %}"><i class="fas fa-trophy"></i> Go to leaderboard</a>
+          <a class="btn btn-info btn-block" href="{% url 'records' %}"><i class="fas fa-history"></i> View my records</a>
+          <a class="btn btn-success btn-block" href="{% url 'create' %}"><i class="fas fa-plus-circle"></i> Add new record</a>
+        {% endif %}
       </div>
     </div>
   </div>

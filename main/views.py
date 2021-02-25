@@ -1,3 +1,6 @@
+import datetime
+import sys
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Avg, Count, Min, Sum
@@ -6,14 +9,17 @@ from django.shortcuts import redirect, render
 from django.utils import dateparse, timezone
 
 from .forms import FitnessRecordForm
-from .models import FitnessRecord
+from .models import Family, FitnessRecord
 
-import datetime
-import sys
 
 # Create your views here.
 def home(request):
-    context = {}
+    user = request.user
+    family = user.family_set.first()
+
+    context = {
+        'family': family,
+    }
     return render(request, 'main/home.html', context)
 
 def leaderboard(request):
