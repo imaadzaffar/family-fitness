@@ -1,8 +1,8 @@
-.env
-.env_django
 .vscode/*
-__pycache__
 *.DS_Store
+.env
+venv
+__pycache__
 *.pyc
 *.code-workspace
 *.sqlite3
