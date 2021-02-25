@@ -9,7 +9,8 @@
       </div>
       <div class="card-body">
         {% if family is None %}
-          <a class="btn btn-success btn-block" href="{% url 'home' %}"><i class="fas fa-plus-circle"></i> Join family</a>
+          <a class="btn btn-primary btn-block" href="{% url 'join_family' %}"><i class="fas fa-users"></i> Join a family</a>
+          <a class="btn btn-success btn-block" href="{% url 'create_family' %}"><i class="fas fa-plus-circle"></i> Create a family</a>
         {% else %}
            <a class="btn btn-primary btn-block" href="{% url 'leaderboard' %}"><i class="fas fa-trophy"></i> Go to leaderboard</a>
           <a class="btn btn-info btn-block" href="{% url 'records' %}"><i class="fas fa-history"></i> View my records</a>

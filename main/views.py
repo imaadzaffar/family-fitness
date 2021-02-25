@@ -8,7 +8,7 @@ from django.db.models.functions import Coalesce
 from django.shortcuts import redirect, render
 from django.utils import dateparse, timezone
 
-from .forms import FitnessRecordForm
+from .forms import FamilyForm, FitnessRecordForm
 from .models import Family, FitnessRecord
 
 
@@ -48,6 +48,31 @@ def leaderboard(request):
         'leaderboard_records': leaderboard_records
     }
     return render(request, 'main/leaderboard.html', context)
+
+def create_family(request):
+    if request.method == 'POST':
+        form = FamilyForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            family = form.save(commit=False)
+            family.save()
+            family.members.add(user)
+            form.save_m2m()
+
+            return redirect('family_share')
+    else:
+        form = FamilyForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'main/create_family.html', context)
+
+def share_family(request):
+    return redirect('home')
+
+def join_family(request):
+    return redirect('home')
 
 @login_required
 def records(request):

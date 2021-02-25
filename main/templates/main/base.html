@@ -66,8 +66,13 @@
               {% if family is None %}
                 <a
                   class="nav-item nav-link {% if request.resolver_match.url_name == 'create' %}active{% endif %}"
-                  href="{% url 'home' %}"
-                  ><i class="fas fa-plus-circle"></i> Join family</a
+                  href="{% url 'join_family' %}"
+                  ><i class="fas fa-users"></i> Join family</a
+                >
+                <a
+                  class="nav-item nav-link {% if request.resolver_match.url_name == 'create' %}active{% endif %}"
+                  href="{% url 'create_family' %}"
+                  ><i class="fas fa-plus-circle"></i> Create family</a
                 >
               {% else %}
                 <a

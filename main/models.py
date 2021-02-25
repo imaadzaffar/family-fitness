@@ -28,7 +28,7 @@ def generateCode():
     return get_random_string(length=6)
 
 class Family(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, verbose_name='Family Name')
     members = models.ManyToManyField(User)
     code = models.CharField(max_length=6, default=generateCode, unique=True)
 
@@ -36,4 +36,7 @@ class Family(models.Model):
         verbose_name_plural = 'Families'
     
     def __str__(self):
-        return f'{self.name} | {self.members.all().count()} members | {self.code}'
+        try:
+            return f'{self.name} | {self.members.all().count()} members | {self.code}'
+        except:
+            return f'{self.name} | {self.code}'
