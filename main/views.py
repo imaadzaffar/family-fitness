@@ -8,7 +8,7 @@ from django.db.models.functions import Coalesce
 from django.shortcuts import redirect, render
 from django.utils import dateparse, timezone
 
-from .forms import FamilyForm, FitnessRecordForm
+from .forms import CreateFamilyForm, FitnessRecordForm, JoinFamilyForm
 from .models import Family, FitnessRecord
 
 
@@ -51,7 +51,7 @@ def leaderboard(request):
 
 def create_family(request):
     if request.method == 'POST':
-        form = FamilyForm(request.POST)
+        form = CreateFamilyForm(request.POST)
         if form.is_valid():
             user = request.user
             family = form.save(commit=False)
@@ -61,17 +61,36 @@ def create_family(request):
 
             return redirect('family_share')
     else:
-        form = FamilyForm()
+        form = CreateFamilyForm()
 
     context = {
         'form': form
     }
     return render(request, 'main/create_family.html', context)
 
-def share_family(request):
-    return redirect('home')
-
 def join_family(request):
+    if request.method == 'POST':
+        form = JoinFamilyForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            code = request.POST.get('code')
+            try:
+                family = Family.objects.get(code=code)
+                family.members.add(user)
+                family.save()
+
+                return redirect('home')
+            except:
+                form.add_error(field='code', error='Invalid code. Please try again')
+    else:
+        form = JoinFamilyForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'main/join_family.html', context)
+
+def share_family(request):
     return redirect('home')
 
 @login_required

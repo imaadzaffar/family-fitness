@@ -9,7 +9,7 @@ class FitnessRecordForm(ModelForm):
         model = FitnessRecord
         fields = ['category', 'calories', 'duration']
 
-class FamilyForm(ModelForm):
+class CreateFamilyForm(ModelForm):
     class Meta:
         model = Family
         fields = ['name']
@@ -17,3 +17,6 @@ class FamilyForm(ModelForm):
         widgets = {
             'members': forms.CheckboxSelectMultiple
         }
+
+class JoinFamilyForm(Form):
+    code = forms.CharField(label='Family code', min_length=6, max_length=6)
