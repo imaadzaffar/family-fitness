@@ -26,6 +26,7 @@ def not_joined_family(user):
     family = user.family_set.first()
     return family is None
 
+@login_required
 def create_family(request):
     if request.method == 'POST':
         form = CreateFamilyForm(request.POST)
@@ -45,6 +46,7 @@ def create_family(request):
     }
     return render(request, 'main/create_family.html', context)
 
+@login_required
 def join_family(request):
     if request.method == 'POST':
         form = JoinFamilyForm(request.POST)
@@ -67,6 +69,7 @@ def join_family(request):
     }
     return render(request, 'main/join_family.html', context)
 
+@login_required
 def share_family(request):
     user = request.user
     if not_joined_family(user):
