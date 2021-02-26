@@ -79,6 +79,7 @@ def share_family(request):
     }
     return render(request, 'main/share_family.html', context)
 
+@login_required
 def leaderboard(request):
     user = request.user
     if not_joined_family(user):
@@ -88,7 +89,7 @@ def leaderboard(request):
     members = family.members.all()
 
     leaderboard_records = []
-    
+
     for user in members:
         user_records = FitnessRecord.objects.order_by('-created').filter(user=user)
         user_stats = user_records.filter(created__month=timezone.now().month).aggregate(total_calories=Coalesce(Sum('calories'), 0), total_duration=Sum('duration'))
