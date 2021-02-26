@@ -1,6 +1,8 @@
+import string
+
 from django import forms
 from django.contrib.auth.models import User
-from django.db import models
+from django.db import IntegrityError, models
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 
@@ -24,13 +26,25 @@ class FitnessRecord(models.Model):
     def __str__(self):
         return f'{self.user.username} | {self.category} | {self.calories}'
 
-def generateCode():
-    return get_random_string(length=6)
+def generate_code():
+    return get_random_string(length=6, allowed_chars=string.ascii_lowercase + string.digits)
 
 class Family(models.Model):
     name = models.CharField(max_length=20, verbose_name='Family Name')
     members = models.ManyToManyField(User)
-    code = models.CharField(max_length=6, default=generateCode, unique=True)
+    code = models.CharField(max_length=6, blank=True, unique=True)
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = generate_code()
+        success = False
+        while not success:
+            try:
+                super(Family, self).save(*args, **kwargs)
+            except IntegrityError:
+                self.code = generate_code()
+            else:
+                success = True
 
     class Meta:
         verbose_name_plural = 'Families'
