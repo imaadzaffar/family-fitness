@@ -32,7 +32,7 @@ def create_family(request):
             family.members.add(user)
             form.save_m2m()
 
-            return redirect('family_share')
+            return redirect('share_family')
     else:
         form = CreateFamilyForm()
 
@@ -52,7 +52,7 @@ def join_family(request):
                 family.members.add(user)
                 family.save()
 
-                return redirect('home')
+                return redirect('share_family')
             except:
                 form.add_error(field='code', error='Invalid code. Please try again')
     else:
@@ -64,7 +64,16 @@ def join_family(request):
     return render(request, 'main/join_family.html', context)
 
 def share_family(request):
-    return redirect('home')
+    user = request.user
+    if not_joined_family(user):
+        return redirect('home')
+
+    family = user.family_set.first()
+
+    context = {
+        'family': family
+    }
+    return render(request, 'main/share_family.html', context)
 
 def not_joined_family(user):
     family = user.family_set.first()

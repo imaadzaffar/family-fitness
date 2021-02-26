@@ -79,9 +79,9 @@
                 ><i class="fas fa-history"></i> Records</a
               >
               <a
-                class="nav-item nav-link {% if request.resolver_match.url_name == 'create' %}active{% endif %}"
-                href="{% url 'create' %}"
-                ><i class="fas fa-plus-circle"></i> Add new record</a
+                class="nav-item nav-link {% if request.resolver_match.url_name == 'share_family' %}active{% endif %}"
+                href="{% url 'share_family' %}"
+                ><i class="fas fa-share"></i> Share family code</a
               >
             </div>
           </div>
