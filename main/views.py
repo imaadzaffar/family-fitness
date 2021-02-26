@@ -13,6 +13,7 @@ from .models import Family, FitnessRecord
 
 
 # Create your views here.
+@login_required
 def home(request):
     user = request.user
     family = user.family_set.first()
