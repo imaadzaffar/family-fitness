@@ -19,4 +19,4 @@ class CreateFamilyForm(ModelForm):
         }
 
 class JoinFamilyForm(Form):
-    code = forms.CharField(label='Family code', min_length=6, max_length=6)
+    code = forms.CharField(label='Family Code', min_length=6, max_length=6)
