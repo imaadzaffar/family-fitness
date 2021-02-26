@@ -22,6 +22,10 @@ def home(request):
     }
     return render(request, 'main/home.html', context)
 
+def not_joined_family(user):
+    family = user.family_set.first()
+    return family is None
+
 def create_family(request):
     if request.method == 'POST':
         form = CreateFamilyForm(request.POST)
@@ -75,18 +79,17 @@ def share_family(request):
     }
     return render(request, 'main/share_family.html', context)
 
-def not_joined_family(user):
-    family = user.family_set.first()
-    return family is None
-
 def leaderboard(request):
     user = request.user
     if not_joined_family(user):
         return redirect('home')
 
+    family = user.family_set.first()
+    members = family.members.all()
+
     leaderboard_records = []
-    users = User.objects.all()
-    for user in users:
+    
+    for user in members:
         user_records = FitnessRecord.objects.order_by('-created').filter(user=user)
         user_stats = user_records.filter(created__month=timezone.now().month).aggregate(total_calories=Coalesce(Sum('calories'), 0), total_duration=Sum('duration'))
         user_stats['user'] = user
