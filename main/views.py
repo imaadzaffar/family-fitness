@@ -84,6 +84,18 @@ def share_family(request):
     return render(request, 'main/share_family.html', context)
 
 @login_required
+def leave_family(request):
+    user = request.user
+    if not_joined_family(user):
+        return redirect('home')
+
+    family = user.family_set.first()
+    family.members.remove(user)
+    family.save()
+
+    return redirect('home')
+
+@login_required
 def leaderboard(request):
     user = request.user
     if not_joined_family(user):
