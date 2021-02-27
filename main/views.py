@@ -2,7 +2,7 @@ import datetime
 import sys
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from register.models import User
 from django.db.models import Avg, Count, Min, Sum
 from django.db.models.functions import Coalesce
 from django.shortcuts import redirect, render

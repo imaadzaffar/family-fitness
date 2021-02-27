@@ -1,10 +1,10 @@
 import string
 
 from django import forms
-from django.contrib.auth.models import User
 from django.db import IntegrityError, models
 from django.utils import timezone
 from django.utils.crypto import get_random_string
+from register.models import User
 
 
 # Create your models here.
