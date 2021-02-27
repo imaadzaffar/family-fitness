@@ -79,6 +79,11 @@
                 ><i class="fas fa-history"></i> Records</a
               >
               <a
+                class="nav-item nav-link {% if request.resolver_match.url_name == 'create' %}active{% endif %}"
+                href="{% url 'create' %}"
+                ><i class="fas fa-plus-circle"></i> New Record</a
+              >
+              <a
                 class="nav-item nav-link {% if request.resolver_match.url_name == 'info_family' %}active{% endif %}"
                 href="{% url 'info_family' %}"
                 ><i class="fas fa-users"></i> My Family</a
