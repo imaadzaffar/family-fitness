@@ -7,12 +7,32 @@
       <div class="text-center">
         <h5 class="card-header text-primary text-uppercase font-weight-bold">Share family code</h5>
       </div>
-      <div class="card-body">
-        <h3>{{ family.name }}</h3>
-        <h3 class="font-weight-bold">{{ family.code }}</h3>
-        <a href="{% url 'home' %}" class="btn btn-primary"><i class="fas fa-home"></i> Go To Home</a>
+      <div class="card-body text-center">
+        <h3 class="font-weight-bold">{{ family.name }}</h3>
+        <input type="text" readonly class="form-control form-control-lg text-center mx-auto" style="width: 120px;" id="codeInput" value="{{ family.code }}">
+        <br>
+        <div class="btn-group-vertical">
+          <button type="button" onclick="copyCode()" class="btn btn-success btn"><i class="fas far fa-copy"></i> Copy Code</button>
+          <a href="{% url 'home' %}" class="btn btn-primary btn"><i class="fas fa-home"></i> Go To Home</a>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  function copyCode() {
+    var copyText = document.getElementById("codeInput");
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+    /* Alert the copied text */
+    alert("Copied the text: " + copyText.value);
+  }
+</script>
 {% endblock %}
