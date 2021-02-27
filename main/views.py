@@ -182,7 +182,7 @@ def edit(request, pk):
         if form.is_valid():
             category = request.POST.get('category')
             calories = int(request.POST.get('calories'))
-            duration = parse_duration(request.POST.get('duration'))
+            duration = dateparse.parse_duration(request.POST.get('duration'))
 
             difference_calories = calories - old_calories
             difference_duration = duration - old_duration
