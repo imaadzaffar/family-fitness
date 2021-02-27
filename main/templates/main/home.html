@@ -12,10 +12,9 @@
           <a class="btn btn-primary btn-block btn-lg" href="{% url 'join_family' %}"><i class="fas fa-users"></i> Join a family</a>
           <a class="btn btn-success btn-block btn-lg" href="{% url 'create_family' %}"><i class="fas fa-plus-circle"></i> Create a family</a>
         {% else %}
-          <a class="btn btn-primary btn-block btn-lg" href="{% url 'leaderboard' %}"><i class="fas fa-trophy"></i> Go to leaderboard</a>
-          <a class="btn btn-info btn-block btn-lg" href="{% url 'records' %}"><i class="fas fa-history"></i> View my records</a>
-          <a class="btn btn-success btn-block btn-lg" href="{% url 'create' %}"><i class="fas fa-plus-circle"></i> Add new record</a>
-          <a class="btn btn-danger btn-block btn-lg" href="{% url 'share_family' %}"><i class="fas fa-share"></i> Share family code</a>
+          <a class="btn btn-primary btn-block btn-lg" href="{% url 'leaderboard' %}"><i class="fas fa-trophy"></i> Go to Leaderboard</a>
+          <a class="btn btn-success btn-block btn-lg" href="{% url 'records' %}"><i class="fas fa-history"></i> View my Records</a>
+          <a class="btn btn-info btn-block btn-lg" href="{% url 'info_family' %}"><i class="fas fa-users"></i> My Family</a>
         {% endif %}
       </div>
     </div>
