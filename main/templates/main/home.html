@@ -12,9 +12,40 @@
           <a class="btn btn-primary btn-block btn-lg" href="{% url 'join_family' %}"><i class="fas fa-users"></i> Join your family</a>
           <a class="btn btn-success btn-block btn-lg" href="{% url 'create_family' %}"><i class="fas fa-plus-circle"></i> Create your family</a>
         {% else %}
-          <a class="btn btn-primary btn-block btn-lg" href="{% url 'leaderboard' %}"><i class="fas fa-trophy"></i> Go to Leaderboard</a>
-          <a class="btn btn-success btn-block btn-lg" href="{% url 'records' %}"><i class="fas fa-history"></i> View my Records</a>
-          <a class="btn btn-info btn-block btn-lg" href="{% url 'info_family' %}"><i class="fas fa-users"></i> My Family</a>
+          <div class="d-flex row">
+            <div class="col-md-6 col-lg py-2">
+              <div class="card bg-primary text-white h-100">
+                <div class="card-body">
+                  <h5 class="card-title"><i class="fas fa-trophy"></i> Leaderboard</h5>
+                  <a href="{% url 'leaderboard' %}" class="stretched-link text-white">View family leaderboard</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg py-2">
+              <div class="card bg-warning text-white h-100">
+                <div class="card-body">
+                  <h5 class="card-title"><i class="fas fa-history"></i> Records</h5>
+                  <a href="{% url 'records' %}" class="stretched-link text-white">View my records</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg py-2">
+              <div class="card bg-success text-white h-100">
+                <div class="card-body">
+                  <h5 class="card-title"><i class="fas fa-plus-circle"></i> New Record</h5>
+                  <a href="{% url 'create' %}" class="stretched-link text-white">Add new record</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg py-2">
+              <div class="card bg-info text-white h-100">
+                <div class="card-body">
+                  <h5 class="card-title"><i class="fas fa-users"></i> My Family</h5>
+                  <a href="{% url 'info_family' %}" class="stretched-link text-white">View family info</a>
+                </div>
+              </div>
+            </div>
+          </div>
         {% endif %}
       </div>
     </div>
