@@ -10,9 +10,9 @@
       <div class="card-body">
         {% if records|length == 0 %}
           <p>No records at the moment...</p>
-          <a class="btn btn-success" href="{% url 'create' %}"><i class="fas fa-plus-circle"></i> Add new record</a>
+          <a class="btn btn-success float-right" href="{% url 'create' %}"><i class="fas fa-plus-circle"></i> Add new Record</a>
         {% else %}
-          <a class="btn btn-success mb-3" href="{% url 'create' %}"><i class="fas fa-plus-circle"></i> Add new record</a>
+          <a class="btn btn-success float-right mb-3" href="{% url 'create' %}"><i class="fas fa-plus-circle"></i> Add new Record</a>
           <table class="table table-bordered">
             <thead>
               <th scope="col">Date</th>
