@@ -9,10 +9,26 @@
       </div>
       <div class="card-body">
         {% if family is None %}
-          <a class="btn btn-primary btn-block btn-lg" href="{% url 'join_family' %}"><i class="fas fa-users"></i> Join your family</a>
-          <a class="btn btn-success btn-block btn-lg" href="{% url 'create_family' %}"><i class="fas fa-plus-circle"></i> Create your family</a>
+          <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4 py-2">
+              <div class="card bg-primary text-white h-100">
+                <div class="card-body">
+                  <h5 class="card-title"><i class="fas fa-users"></i> Join Family</h5>
+                  <a href="{% url 'leaderboard' %}" class="stretched-link text-white">Join with your family code</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4 py-2">
+              <div class="card bg-success text-white h-100">
+                <div class="card-body">
+                  <h5 class="card-title"><i class="fas fa-plus-circle"></i> Create Family</h5>
+                  <a href="{% url 'create_family' %}" class="stretched-link text-white">Create your family</a>
+                </div>
+              </div>
+            </div>
+          </div>
         {% else %}
-          <div class="d-flex row">
+          <div class="row">
             <div class="col-md-6 col-lg py-2">
               <div class="card bg-primary text-white h-100">
                 <div class="card-body">
