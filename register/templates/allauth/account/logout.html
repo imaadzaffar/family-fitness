@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="card shadow">
+      <div class="text-center">
+        <h5 class="card-header text-primary text-uppercase font-weight-bold">Logout</h5>
+      </div>
+      <div class="card-body text-center">
+        <p>Are you sure you want to logout?</p>
+        <form method="POST" action="{% url 'account_logout' %}" class="form-group">
+          {% csrf_token %}
+          {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button class="btn btn-primary" type="submit">Logout</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
