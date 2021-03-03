@@ -7,6 +7,7 @@ from .models import User
 
 # Register your models here.
 class CustomUserAdmin(UserAdmin):
+    model = User
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
     list_display = ('email', 'first_name')

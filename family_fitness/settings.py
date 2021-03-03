@@ -29,7 +29,6 @@ ALLOWED_HOSTS = ['zafaris-family-fitness.herokuapp.com', '0.0.0.0', '127.0.0.1',
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,12 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # Apps
+    'accounts.apps.AccountsConfig',
     'main.apps.MainConfig',
-    'register.apps.RegisterConfig',
 
     # All Auth
     'allauth',
-    'allauth.account',
+    # 'allauth.account',
     'allauth.socialaccount',
 
     # Other
@@ -70,7 +69,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'), 
-            os.path.join(BASE_DIR, 'register', 'templates', 'allauth')
+            os.path.join(BASE_DIR, 'accounts', 'templates', 'allauth')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -145,7 +144,7 @@ STATICFILES_DIRS = (
 )
 
 # Other
-AUTH_USER_MODEL = 'register.User'
+AUTH_USER_MODEL = 'accounts.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -159,7 +158,7 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 
-ACCOUNT_FORMS = {'signup': 'register.forms.CustomSignupForm'}
+ACCOUNT_FORMS = {'signup': 'accounts.forms.CustomSignupForm'}
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False

@@ -2,7 +2,7 @@ from allauth.account.forms import SignupForm
 from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 
-from register.models import User
+from .models import User
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -20,7 +20,7 @@ class CustomSignupForm(SignupForm):
     name = forms.CharField(
         help_text='This name will be shown on your family leaderboard by default',
         widget=forms.TextInput(attrs={'placeholder': 'Name'}),
-        max_length=100
+        max_length=150
     )
 
     class Meta:
@@ -34,7 +34,7 @@ class CustomSignupForm(SignupForm):
         user = super(CustomSignupForm, self).save(request)
 
         # Add your own processing here.
-        user.first_name = self.cleaned_data['first_name']
+        user.name = self.cleaned_data['name']
         user.save()
 
         # You must return the original result.
