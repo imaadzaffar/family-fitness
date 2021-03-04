@@ -10,7 +10,7 @@
         <h5 class="card-header text-primary text-uppercase font-weight-bold">Register</h5>
       </div>
       <div class="card-body">
-        <form method="POST" action="#">
+        <form method="POST" action="{% url 'account_signup' %}" class="form-group">
           {% csrf_token %}
           {{ form|crispy }}
           {% if redirect_field_value %}
