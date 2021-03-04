@@ -34,10 +34,14 @@
                 <span>{{ forloop.counter }}</span>
                 {% endif %}
               </td>
-              <td>{{ user_leaderboard.user.first_name }}</td>
+              <td>{{ user_leaderboard.user.name }}</td>
               <td>{{ user_leaderboard.total_calories }}</td>
               <td>{{ user_leaderboard.total_duration }}</td>
-              <td>{{ user_leaderboard.last_record|date:"j M Y" }}</td>
+              {% if user_leaderboard.last_record %}
+                <td>{{ user_leaderboard.last_record|date:"j M Y" }}</td>
+              {% else %}
+                <td>None</td>
+              {% endif %}
             </tr>
             {% endfor %}
           </tbody>
