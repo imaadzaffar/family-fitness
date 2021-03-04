@@ -1,10 +1,10 @@
 import string
 
+from accounts.models import User
 from django import forms
 from django.db import IntegrityError, models
 from django.utils import timezone
 from django.utils.crypto import get_random_string
-from accounts.models import User
 
 
 # Create your models here.
@@ -24,7 +24,7 @@ class FitnessRecord(models.Model):
     duration = models.DurationField(default='00:30:00', help_text='HH:MM:ss format')
 
     def __str__(self):
-        return f'{self.user.username} | {self.category} | {self.calories}'
+        return f'{self.user.name} | {self.category} | {self.calories}'
 
 def generate_code():
     return get_random_string(length=6, allowed_chars=string.ascii_lowercase + string.digits)
